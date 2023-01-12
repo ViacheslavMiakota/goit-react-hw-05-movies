@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import { Movies } from 'pages/Movies';
 import { Home } from 'pages/Home';
 import { MovieDetails } from 'pages/MovieDetails';
+import { Cast } from 'pages/Cast';
 
 import { Container, Header, Logo, Link } from 'components/App/App.styled';
 import { FcCamcorderPro } from 'react-icons/fc';
@@ -27,9 +28,9 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/movies" element={<Movies />} />
-        <Route path="/movies/:id" element={<MoviesDetails />}>
-          {/* <Route path="/cast" element={<Cast />} />
-          <Route path="/reviews" element={<Reviews />} /> */}
+        <Route path="/movies/:id" element={<MovieDetails />}>
+          <Route path="cast" element={<Cast />} />
+          {/* <Route path="/reviews" element={<Reviews />} /> */}
         </Route>
       </Routes>
     </Container>

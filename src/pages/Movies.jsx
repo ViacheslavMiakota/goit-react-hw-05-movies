@@ -27,20 +27,11 @@ export const Movies = () => {
           return;
         }
         const movies = results.map(
-          ({
-            id,
+          ({ release_date, title, poster_path, popularity }) => ({
             release_date,
             title,
             poster_path,
             popularity,
-            backdrop_path,
-          }) => ({
-            id,
-            release_date,
-            title,
-            poster_path,
-            popularity,
-            backdrop_path,
           })
         );
         setResults(prevResults => [...prevResults, ...movies]);

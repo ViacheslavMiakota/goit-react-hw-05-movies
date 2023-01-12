@@ -1,3 +1,5 @@
+import { useLocation } from 'react-router-dom';
+
 import {
   CardLink,
   CardBottom,
@@ -7,9 +9,10 @@ import {
   Span,
 } from 'components/MoviesItem/MoviesItem.styled';
 
-const MoviesItem = ({ release, title, poster }) => {
+const MoviesItem = ({ release, title, poster, id }) => {
+  const location = useLocation();
   return (
-    <CardLink>
+    <CardLink to={`/movies/${`${id}`}`} state={{ from: location }}>
       <Image
         src={
           poster

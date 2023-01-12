@@ -31,7 +31,6 @@ export const Home = () => {
     }
     fetchBase();
   }, []);
-  console.log(trendingMovies.length);
   return (
     trendingMovies && (
       <>
