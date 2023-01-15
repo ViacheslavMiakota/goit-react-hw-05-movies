@@ -35,8 +35,8 @@ const MoviesItem = ({ release, title, poster, id }) => {
 };
 export default MoviesItem;
 MoviesItem.propTypes = {
-  release: PropTypes.number.isRequired,
+  release: PropTypes.number,
   title: PropTypes.string.isRequired,
-  poster: PropTypes.object.isRequired,
+  poster: PropTypes.object,
   id: PropTypes.number.isRequired,
 };
