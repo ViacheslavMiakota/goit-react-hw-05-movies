@@ -19,7 +19,7 @@ export const Movies = () => {
   const changeFilter = value => {
     setSearchParams({ query: value });
   };
-
+  console.log(searchParams);
   useEffect(() => {
     if (!query) {
       return;

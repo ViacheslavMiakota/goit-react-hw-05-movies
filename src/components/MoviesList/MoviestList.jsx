@@ -1,5 +1,6 @@
 import MoviesItem from 'components/MoviesItem/MoviesItem';
 import { List, Card } from 'components/MoviesList/MoviesList.styled';
+import PropTypes from 'prop-types';
 
 const MoviesList = ({ movies }) => {
   return (
@@ -19,3 +20,7 @@ const MoviesList = ({ movies }) => {
   );
 };
 export default MoviesList;
+
+MoviesList.propTypes = {
+  movies: PropTypes.array.isRequired,
+};

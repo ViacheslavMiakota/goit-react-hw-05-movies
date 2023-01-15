@@ -1,4 +1,5 @@
 import { useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import {
   CardLink,
@@ -33,3 +34,9 @@ const MoviesItem = ({ release, title, poster, id }) => {
   );
 };
 export default MoviesItem;
+MoviesItem.propTypes = {
+  release: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  poster: PropTypes.object.isRequired,
+  id: PropTypes.number.isRequired,
+};
