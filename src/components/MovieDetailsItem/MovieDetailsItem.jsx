@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import {
   Title,
   Image,
@@ -53,23 +53,20 @@ export const MovieDetailsItem = ({ movieInfo }) => {
             Overview: <Span>{overview}</Span>
           </TitleH3>
           <TitleH3>
-            Genres:{' '}
-            <Span>
-              {vote_average}
-              {genreSelection(genres)}
-            </Span>
+            Genres: <Span>{genreSelection(genres)}</Span>
           </TitleH3>
         </DetailsContext>
       </DetailsBox>
       <TitleH4>Additional information</TitleH4>
       <Information>
-        <AddInfoLink to={`/movies/${`${id}`}/cast`} state={{ from: location }}>
+        <AddInfoLink to={`/movies/${`${id}`}/cast`} state={location.state}>
           Cast
         </AddInfoLink>
         <AddInfoLink to={`/movies/${` ${id}`}/reviews`} state={location.state}>
           Reviews
         </AddInfoLink>
       </Information>
+      <Outlet />
     </>
   );
 };

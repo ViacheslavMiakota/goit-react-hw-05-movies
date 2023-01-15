@@ -29,7 +29,7 @@ export const MovieDetails = () => {
     movie && (
       <>
         <ButtonGoBack />
-        {loading && <Loader />}
+        {loading && <Loader isLoading={loading} />}
         {movie && <MovieDetailsItem movieInfo={movie} />}
       </>
     )

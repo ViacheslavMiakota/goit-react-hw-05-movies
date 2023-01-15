@@ -93,10 +93,3 @@ export const Span = styled.span`
     font-size: 18px;
   }
 `;
-export const CastListUL = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: stretch;
-  justify-content: center;
-  margin: -10px;
-`;

@@ -7,7 +7,7 @@ import {
   SearchForInput,
 } from 'components/SearchMovies/SearchMovies.styled';
 
-const SearchMovies = ({ handleSubmit }) => {
+const SearchMovies = ({ handleSubmit, onChange }) => {
   const onSubmit = event => {
     event.preventDefault();
     const query = event.target.elements.query.value.trim();
@@ -23,6 +23,7 @@ const SearchMovies = ({ handleSubmit }) => {
         </Button>
         <SearchForInput
           type="text"
+          onChange={event => onChange(event.target.value)}
           name="query"
           placeholder="Search movies"
         ></SearchForInput>

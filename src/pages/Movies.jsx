@@ -6,6 +6,7 @@ import { fetchMoviesName } from 'services/Api';
 import MoviesList from 'components/MoviesList/MoviestList';
 import Loader from 'components/Loader/Loader';
 import Button from 'components/Button/Button';
+import { useSearchParams } from 'react-router-dom';
 
 export const Movies = () => {
   const [query, setQuery] = useState('');
@@ -13,6 +14,11 @@ export const Movies = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [total_results, setTotal_results] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams('');
+
+  const changeFilter = value => {
+    setSearchParams({ query: value });
+  };
 
   useEffect(() => {
     if (!query) {
@@ -27,7 +33,8 @@ export const Movies = () => {
           return;
         }
         const movies = results.map(
-          ({ release_date, title, poster_path, popularity }) => ({
+          ({ id, release_date, title, poster_path, popularity }) => ({
+            id,
             release_date,
             title,
             poster_path,
@@ -59,9 +66,10 @@ export const Movies = () => {
   const incrementMovies = () => {
     setPage(prevPage => prevPage + 1);
   };
+
   return (
     <main>
-      <SearchMovies handleSubmit={handleSubmit} />
+      <SearchMovies handleSubmit={handleSubmit} onChange={changeFilter} />
       {results.length > 0 && <MoviesList movies={results} />}
       {Boolean(total_results) &&
         total_results !== results.length &&
