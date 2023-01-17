@@ -1,5 +1,8 @@
 import React from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
+import toast, { Toaster } from 'react-hot-toast';
+import { useSearchParams } from 'react-router-dom';
 import {
   Button,
   SearchForm,
@@ -7,13 +10,27 @@ import {
   SearchForInput,
 } from 'components/SearchMovies/SearchMovies.styled';
 
-const SearchMovies = ({ handleSubmit, onChange }) => {
+const SearchMovies = ({ handleSubmit }) => {
+  const [query, setQuery] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams('');
+
+  const changeFilter = event => {
+    setQuery(event.target.value);
+  };
   const onSubmit = event => {
     event.preventDefault();
     const query = event.target.elements.query.value.trim();
     if (!query) return;
+    if (searchParams.get('query') === query) {
+      toast.success(
+        `You have already entered the query :${query}.
+        Please refresh the page and try again, or enter a different query.`
+      );
+      return;
+    }
+    setSearchParams({ query });
     handleSubmit(query);
-    event.target.reset();
+    setQuery('');
   };
   return (
     <SearchMoviesHeader>
@@ -23,17 +40,17 @@ const SearchMovies = ({ handleSubmit, onChange }) => {
         </Button>
         <SearchForInput
           type="text"
-          onChange={event => onChange(event.target.value)}
+          onChange={changeFilter}
           name="query"
           placeholder="Search movies"
         ></SearchForInput>
       </SearchForm>
+      <Toaster />
     </SearchMoviesHeader>
   );
 };
 
 export default SearchMovies;
 SearchMovies.propTypes = {
-  onChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
 };

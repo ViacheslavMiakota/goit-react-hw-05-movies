@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { fetchActors } from 'services/Api';
 import Loader from 'components/Loader/Loader';
 import { useParams } from 'react-router-dom';
+import { getSrc } from 'services/Api';
 import {
   CastUL,
   CastLi,
@@ -21,7 +22,6 @@ export const Cast = () => {
       try {
         setLoading(true);
         const { data } = await fetchActors(movieId);
-        console.log(data.cast);
         setCast(data.cast);
       } catch (error) {
         return;
@@ -42,11 +42,7 @@ export const Cast = () => {
             cast.map(({ id, name, character, profile_path }) => (
               <CastLi key={id}>
                 <CastIMg
-                  src={
-                    profile_path
-                      ? 'https://image.tmdb.org/t/p/w500' + profile_path
-                      : 'https://louisville.edu/history/images/noimage.jpg/image'
-                  }
+                  src={getSrc(profile_path)}
                   alt={name}
                   width="150"
                   height="100%"

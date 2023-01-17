@@ -9,18 +9,14 @@ import Button from 'components/Button/Button';
 import { useSearchParams } from 'react-router-dom';
 
 export const Movies = () => {
-  const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [total_results, setTotal_results] = useState(0);
-  const [searchParams, setSearchParams] = useSearchParams('');
+  const [searchParams] = useSearchParams('');
 
-  const changeFilter = value => {
-    setSearchParams({ query: value });
-  };
-  console.log(searchParams);
   useEffect(() => {
+    const query = searchParams.get('query');
     if (!query) {
       return;
     }
@@ -50,30 +46,24 @@ export const Movies = () => {
       }
     }
     fetshBase();
-  }, [query, page]);
-  const handleSubmit = newQuery => {
-    if (newQuery === query) {
-      toast.success(
-        `You have already entered the query :${query}.
-        Please refresh the page and try again, or enter a different query.`
-      );
-      return;
-    }
-    setQuery(newQuery);
+  }, [searchParams, page]);
+
+  const handleSubmit = () => {
     setResults([]);
     setPage(1);
   };
+
   const incrementMovies = () => {
     setPage(prevPage => prevPage + 1);
   };
 
+  const showButton =
+    Boolean(total_results) && total_results !== results.length && !loading;
   return (
     <main>
-      <SearchMovies handleSubmit={handleSubmit} onChange={changeFilter} />
+      <SearchMovies handleSubmit={handleSubmit} />
       {results.length > 0 && <MoviesList movies={results} />}
-      {Boolean(total_results) &&
-        total_results !== results.length &&
-        !loading && <Button loadMoreProp={incrementMovies} />}
+      {showButton && <Button loadMoreProp={incrementMovies} />}
       {loading && <Loader isLoading={loading} />}
       <Toaster />
     </main>

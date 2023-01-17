@@ -5,17 +5,16 @@ import PropTypes from 'prop-types';
 const MoviesList = ({ movies }) => {
   return (
     <List>
-      {movies &&
-        movies.map(({ id, release_date, title, poster_path }) => (
-          <Card key={id}>
-            <MoviesItem
-              id={id}
-              release={release_date}
-              title={title}
-              poster={poster_path}
-            />
-          </Card>
-        ))}
+      {movies.map(({ id, release_date, title, poster_path }) => (
+        <Card key={id}>
+          <MoviesItem
+            id={id}
+            release={release_date}
+            title={title}
+            poster={poster_path}
+          />
+        </Card>
+      ))}
     </List>
   );
 };

@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
+import { getSrc } from 'services/Api';
 import {
   CardLink,
   CardBottom,
@@ -14,16 +14,7 @@ const MoviesItem = ({ release, title, poster, id }) => {
   const location = useLocation();
   return (
     <CardLink to={`/movies/${`${id}`}`} state={{ from: location }}>
-      <Image
-        src={
-          poster
-            ? `https://image.tmdb.org/t/p/w300${poster}`
-            : 'https://louisville.edu/history/images/noimage.jpg/image'
-        }
-        alt={title}
-        width="100%"
-        height="100%"
-      />
+      <Image src={getSrc(poster)} alt={title} width="100%" height="100%" />
       <CardBottom>
         <CardTitle>{title}</CardTitle>
         <H4>
@@ -35,8 +26,8 @@ const MoviesItem = ({ release, title, poster, id }) => {
 };
 export default MoviesItem;
 MoviesItem.propTypes = {
-  release: PropTypes.number,
+  release: PropTypes.string,
   title: PropTypes.string.isRequired,
-  poster: PropTypes.object,
+  poster: PropTypes.string,
   id: PropTypes.number.isRequired,
 };

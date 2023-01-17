@@ -20,7 +20,6 @@ export const Reviews = () => {
       try {
         setLoading(true);
         const { data } = await fetchReviews(movieId);
-        console.log(data.results);
         setReviews(data.results);
       } catch (error) {
         return;
@@ -31,26 +30,23 @@ export const Reviews = () => {
     reedReviews();
   }, [movieId]);
   return (
-    console.log(reviews),
-    (
-      <>
-        {loading && <Loader isLoading={loading} />}
-        {reviews.length === 0 && !loading ? (
-          <RevievsError> We don't have any reviews</RevievsError>
-        ) : (
-          <RevievsUL>
-            {reviews &&
-              reviews.map(({ id, author, content, updated_at }) => (
-                <RevievsLi key={id}>
-                  <RevievsP>Author :{author}</RevievsP>
-                  <RevievsP>{content}</RevievsP>
+    <>
+      {loading && <Loader isLoading={loading} />}
+      {reviews.length === 0 && !loading ? (
+        <RevievsError> We don't have any reviews</RevievsError>
+      ) : (
+        <RevievsUL>
+          {reviews &&
+            reviews.map(({ id, author, content, updated_at }) => (
+              <RevievsLi key={id}>
+                <RevievsP>Author :{author}</RevievsP>
+                <RevievsP>{content}</RevievsP>
 
-                  <RevievsP>Update :{updated_at}</RevievsP>
-                </RevievsLi>
-              ))}
-          </RevievsUL>
-        )}
-      </>
-    )
+                <RevievsP>Update :{updated_at}</RevievsP>
+              </RevievsLi>
+            ))}
+        </RevievsUL>
+      )}
+    </>
   );
 };

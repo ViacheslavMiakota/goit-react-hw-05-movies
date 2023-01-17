@@ -6,7 +6,7 @@ import MoviesList from 'components/MoviesList/MoviestList';
 import { H1 } from 'components/MoviesItem/MoviesItem.styled';
 
 export const Home = () => {
-  const [trendingMovies, setTrendingMovies] = useState('');
+  const [trendingMovies, setTrendingMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     async function fetchBase() {

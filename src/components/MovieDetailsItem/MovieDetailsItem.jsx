@@ -1,4 +1,5 @@
 import { Outlet, useLocation } from 'react-router-dom';
+import { getSrc, genreSelection } from 'services/Api';
 import {
   Title,
   Image,
@@ -13,20 +14,9 @@ import {
 
 export const MovieDetailsItem = ({ movieInfo }) => {
   const location = useLocation();
-  const genreSelection = data => {
-    if (data === null) return;
-    return data.map(gen => gen.name).join(', ');
-  };
 
-  const {
-    release_date,
-    genres,
-    title,
-    vote_average,
-    overview,
-    poster_path,
-    id,
-  } = movieInfo;
+  const { release_date, genres, title, vote_average, overview, poster_path } =
+    movieInfo;
 
   return (
     <>
@@ -37,14 +27,7 @@ export const MovieDetailsItem = ({ movieInfo }) => {
         <span>)</span>
       </Title>
       <DetailsBox>
-        <Image
-          src={
-            poster_path
-              ? 'https://image.tmdb.org/t/p/w500' + poster_path
-              : 'https://louisville.edu/history/images/noimage.jpg/image'
-          }
-          alt={title}
-        />
+        <Image src={getSrc(poster_path)} alt={title} />
         <DetailsContext>
           <TitleH3>
             User score: <Span>{vote_average} %</Span>
@@ -59,10 +42,10 @@ export const MovieDetailsItem = ({ movieInfo }) => {
       </DetailsBox>
       <TitleH4>Additional information</TitleH4>
       <Information>
-        <AddInfoLink to={`/movies/${`${id}`}/cast`} state={location.state}>
+        <AddInfoLink to={`cast`} state={location.state}>
           Cast
         </AddInfoLink>
-        <AddInfoLink to={`/movies/${` ${id}`}/reviews`} state={location.state}>
+        <AddInfoLink to={`reviews`} state={location.state}>
           Reviews
         </AddInfoLink>
       </Information>
