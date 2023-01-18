@@ -33,20 +33,23 @@ const SearchMovies = ({ handleSubmit }) => {
     setQuery('');
   };
   return (
-    <SearchMoviesHeader>
-      <SearchForm onSubmit={onSubmit}>
-        <Button type="submit">
-          <span>Search</span>
-        </Button>
-        <SearchForInput
-          type="text"
-          onChange={changeFilter}
-          name="query"
-          placeholder="Search movies"
-        ></SearchForInput>
-      </SearchForm>
-      <Toaster />
-    </SearchMoviesHeader>
+    console.log(query),
+    (
+      <SearchMoviesHeader>
+        <SearchForm onSubmit={onSubmit}>
+          <Button type="submit">
+            <span>Search</span>
+          </Button>
+          <SearchForInput
+            type="text"
+            onChange={changeFilter}
+            name="query"
+            placeholder="Search movies"
+          ></SearchForInput>
+        </SearchForm>
+        <Toaster />
+      </SearchMoviesHeader>
+    )
   );
 };
 
