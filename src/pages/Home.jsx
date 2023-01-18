@@ -9,18 +9,12 @@ export const Home = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
+    const controller = new AbortController();
     async function fetchBase() {
       try {
         setLoading(true);
-        const { results } = await fetchResult();
-        const moviesData = results.map(
-          ({ id, release_date, title, poster_path }) => ({
-            id,
-            release_date,
-            title,
-            poster_path,
-          })
-        );
+        const { moviesData } = await fetchResult(controller.signal);
+
         setTrendingMovies(prevMovies => [...prevMovies, ...moviesData]);
       } catch (error) {
         toast.error('Something went wrong : Try reloading the movie.');
@@ -30,6 +24,9 @@ export const Home = () => {
       }
     }
     fetchBase();
+    return () => {
+      controller.abort();
+    };
   }, []);
   return (
     trendingMovies && (

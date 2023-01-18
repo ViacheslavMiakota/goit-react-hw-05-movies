@@ -16,6 +16,7 @@ export const Movies = () => {
   const [searchParams] = useSearchParams('');
 
   useEffect(() => {
+    const controller = new AbortController();
     const query = searchParams.get('query');
     if (!query) {
       return;
@@ -23,20 +24,11 @@ export const Movies = () => {
     async function fetshBase() {
       try {
         setLoading(true);
-        const { results, total_results } = await fetchMoviesName(query, page);
+        const { movies, total_results } = await fetchMoviesName(query, page);
         if (!total_results) {
           toast.success(`Nothing found for your request :${query}`);
           return;
         }
-        const movies = results.map(
-          ({ id, release_date, title, poster_path, popularity }) => ({
-            id,
-            release_date,
-            title,
-            poster_path,
-            popularity,
-          })
-        );
         setResults(prevResults => [...prevResults, ...movies]);
         setTotal_results(total_results);
       } catch (error) {
@@ -46,6 +38,9 @@ export const Movies = () => {
       }
     }
     fetshBase();
+    return () => {
+      controller.abort();
+    };
   }, [searchParams, page]);
 
   const handleSubmit = () => {

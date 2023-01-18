@@ -12,6 +12,7 @@ export const MovieDetails = () => {
   const movieId = id;
 
   useEffect(() => {
+    const controller = new AbortController();
     async function FetchMovieId() {
       try {
         setLoading(true);
@@ -24,6 +25,9 @@ export const MovieDetails = () => {
       }
     }
     FetchMovieId();
+    return () => {
+      controller.abort();
+    };
   }, [movieId]);
   return (
     movie && (
